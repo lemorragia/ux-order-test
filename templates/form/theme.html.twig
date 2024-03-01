@@ -1,0 +1,34 @@
+{# Form theme to better visualize the collection rows as table columns #}
+{%- block live_collection_widget -%}
+    <table class="table table-borderless form-no-mb">
+        <thead>
+        <tr>
+            {% for child in form|last %}
+                <td>{{ form_label(child) }}</td>
+            {% endfor %}
+            <td></td>
+        </tr>
+        </thead>
+        <tbody>
+        {{ block('form_widget') }}
+        </tbody>
+    </table>
+    {%- if skip_add_button|default(false) is same as(false) and button_add is defined and not button_add.rendered -%}
+        <div class="row">
+            <div class="col">
+                {{ form_widget(button_add, { label: '+ Add Item', attr: { class: 'btn btn-sm btn-outline-primary' } }) }}
+            </div>
+        </div>
+    {%- endif -%}
+{%- endblock -%}
+
+{%- block live_collection_entry_row -%}
+    <tr>
+        {% for child in form %}
+            <td>{{- form_row(child, { label: false }) -}}</td>
+        {% endfor %}
+        <td>
+            {{- form_row(button_delete, { label: 'X', attr: { class: 'btn btn-sm btn-outline-danger' } }) -}}
+        </td>
+    </tr>
+{%- endblock -%}

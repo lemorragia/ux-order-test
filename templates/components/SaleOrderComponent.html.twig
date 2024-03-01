@@ -1,0 +1,37 @@
+{% form_theme form 'form/theme.html.twig' %}
+
+<div{{ attributes }}>
+    {{ form_start(form) }}
+        <div class="row my-4">
+            <div class="col-lg-6">
+                {{ form_row(form.customer) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="row mt-4">
+                <div class="col-12">
+                    <ul class="nav nav-tabs" id="orderTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="items-tab" data-bs-toggle="tab" data-bs-target="#items-tab-pane" type="button" role="tab" aria-controls="items-tab-pane" aria-selected="true">{{ 'wd.ui.products'|trans }}</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="orderTabContent">
+                        <div class="tab-pane fade show active" id="items-tab-pane" role="tabpanel" aria-labelledby="items-tab" tabindex="0">
+                            <div class="row">
+                                <div class="col-12">
+                                    {{ form_row(form.items) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2 ms-auto">
+                                    {{ form_row(form.total) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+    {{ form_end(form) }}
+</div>
