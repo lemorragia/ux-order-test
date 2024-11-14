@@ -19,7 +19,7 @@ class SaleOrderItemType extends AbstractType
                 'class' => Product::class,
                 'required' => false,
                 'attr' => [
-                    'data-action' => 'live#action',
+                    'data-action' => 'change->live#action',
                     'data-live-action-param' => 'updateProductData',
                 ],
             ])
@@ -27,7 +27,7 @@ class SaleOrderItemType extends AbstractType
                 'label' => 'unitPrice',
                 'html5' => true,
                 'attr' => [
-                    'data-action' => 'live#action',
+                    'data-action' => 'change->live#action',
                     'data-live-action-param' => 'updateTotal',
                 ],
             ])
@@ -35,7 +35,7 @@ class SaleOrderItemType extends AbstractType
                 'label' => 'quantity',
                 'html5' => true,
                 'attr' => [
-                    'data-action' => 'live#action',
+                    'data-action' => 'change->live#action',
                     'data-live-action-param' => 'updateTotal',
                 ],
             ])

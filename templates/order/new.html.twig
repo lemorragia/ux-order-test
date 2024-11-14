@@ -6,6 +6,7 @@
     <h1>Create new Order</h1>
 
     {{ component('SaleOrderComponent', {
-        initialFormData: order
+        initialFormData: order,
+        type: type,
     }) }}
 {% endblock %}

@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Customer;
+use App\Entity\CustomerType;
 use App\Entity\Product;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
@@ -41,7 +42,15 @@ class AppFixtures extends Fixture
     private function generateCustomer(ObjectManager $manager): void
     {
         $customer = new Customer();
-        $customer->setName($this->faker->name);
+        $type = rand(0,1) === 1 ? CustomerType::PERSON : CustomerType::COMPANY;
+        if($type === CustomerType::PERSON) {
+            $customer->lastName = $this->faker->lastName;
+            $customer->firstName = $this->faker->firstName;
+        } else {
+            $customer->companyName = $this->faker->company;
+        }
+        $customer->type = $type;
+
         $manager->persist($customer);
     }
 

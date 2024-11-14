@@ -1,0 +1,15 @@
+<div {{ attributes }}>
+    {{ form_start(form, {attr: {
+        'data-action': 'live#action:prevent',
+        'data-live-action-param': 'saveCustomer'
+    }}) }}
+        {% if this.context['type'] == 'person' %}
+            {{ form_row(form.firstName) }}
+            {{ form_row(form.lastName) }}
+        {% elseif this.context['type'] == 'company' %}
+            {{ form_row(form.companyName) }}
+        {% endif %}
+
+        <button type="submit" class="btn btn-success">Salva</button>
+    {{ form_end(form) }}
+</div>

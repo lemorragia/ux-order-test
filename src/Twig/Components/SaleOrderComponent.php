@@ -2,6 +2,7 @@
 
 namespace App\Twig\Components;
 
+use App\Entity\Customer;
 use App\Entity\SaleOrder;
 use App\Form\SaleOrderType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -9,6 +10,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
+use Symfony\UX\LiveComponent\Attribute\LiveArg;
+use Symfony\UX\LiveComponent\Attribute\LiveListener;
 use Symfony\UX\LiveComponent\Attribute\LiveProp;
 use Symfony\UX\LiveComponent\ComponentToolsTrait;
 use Symfony\UX\LiveComponent\ComponentWithFormTrait;
@@ -26,11 +29,27 @@ final class SaleOrderComponent extends AbstractController
     public function __construct(private EntityManagerInterface $entityManager){}
 
     #[LiveProp]
-    public SaleOrder $initialFormData;
+    public string|null $type = null;
+
+    #[LiveProp]
+    public SaleOrder|null $initialFormData = null;
 
     protected function instantiateForm(): FormInterface
     {
-        return $this->createForm(SaleOrderType::class, $this->initialFormData);
+        return $this->createForm(SaleOrderType::class, $this->initialFormData, [
+            'type' => $this->type,
+        ]);
+    }
+
+    #[LiveListener('customerCreated')]
+    public function onCustomerCreated(
+        #[LiveArg]
+        Customer $customer,
+    ): void {
+        $this->formValues['customer'] = $customer->getId();
+        $this->dispatchBrowserEvent('tom-select:sync');
+
+        $this->emit('resetModal');
     }
 
     #[LiveAction]

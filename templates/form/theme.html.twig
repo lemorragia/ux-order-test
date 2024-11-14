@@ -32,3 +32,20 @@
         </td>
     </tr>
 {%- endblock -%}
+
+{% block autocomplete_with_add_widget %}
+    <div class="input-group">
+        {{ block('choice_widget') }}
+
+        {% set modalId = name ~'-add-modal' %}
+        <button
+                type="button"
+                class="btn btn-outline-secondary"
+                id="{{ name }}-add-button"
+                data-bs-toggle="modal"
+                data-bs-target="#{{ modalId }}"
+        >
+            + Add
+        </button>
+    </div>
+{% endblock %}
