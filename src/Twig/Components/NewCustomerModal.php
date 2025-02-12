@@ -77,7 +77,7 @@ final class NewCustomerModal extends AbstractController
     }
 
     #[LiveListener('resetModal')]
-    public function onModalToReset(): void {
+    public function onModalReset(): void {
         $this->formValues['firstName'] = '';
         $this->formValues['lastName'] = '';
         $this->formValues['companyName'] = '';
